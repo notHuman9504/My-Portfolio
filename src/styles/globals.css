@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Carme&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  color: white;
+  background-color: black;
+  cursor:none !important;
+  height: 100%;
+}
+::-webkit-scrollbar{
+  visibility: hidden;
+}
+
+*{
+  cursor: none;
+}
+
+
+.progressContainer {
+  width: 5px;
+
+  background-color: rgb(67, 67, 67);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 100px;
+  z-index: 1000;
+}
+
+.progressBar {
+  border-radius: 100px;
+  width: 100%;
+  background-color: #eabf00;
+  transition: height 0.25s linear;
+}
+
+
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--accent);
+  bottom: 100px;
+}
+
+.parallax {
+  overflow: hidden;
+  letter-spacing: -2px;
+  line-height: 0.8;
+  margin: 0;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.parallax .scroller {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 64px;
+  display: flex;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.parallax span {
+  display: block;
+  margin-right: 30px;
+}
