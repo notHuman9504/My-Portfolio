@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-const Circles = () => {
+const Circles: React.FC = () => {
   const coords = useRef({ x: 0, y: 0 });
-  const circlesRef = useRef([]);
+  const circlesRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-
+    const handleMouseMove = (e: MouseEvent) => {
       coords.current = { x: e.pageX, y: e.pageY };
     };
 
@@ -23,16 +22,19 @@ const Circles = () => {
 
       circlesRef.current.forEach((circle, index) => {
         if (circle) {
+          const nextCircle = circlesRef.current[index + 1] || circlesRef.current[0];
+          const nextX = nextCircle ? parseFloat(nextCircle.dataset.x || "0") : x;
+          const nextY = nextCircle ? parseFloat(nextCircle.dataset.y || "0") : y;
+
           circle.style.left = `${x - 12}px`;
           circle.style.top = `${y - 12}px`;
           circle.style.transform = `scale(${(circlesRef.current.length - index) / circlesRef.current.length})`;
 
-          const nextCircle = circlesRef.current[index + 1] || circlesRef.current[0];
-          x += (nextCircle.x - x) * 0.3;
-          y += (nextCircle.y - y) * 0.3;
+          x += (nextX - x) * 0.3;
+          y += (nextY - y) * 0.3;
 
-          circle.x = x;
-          circle.y = y;
+          circle.dataset.x = String(x);
+          circle.dataset.y = String(y);
         }
       });
 
@@ -51,8 +53,8 @@ const Circles = () => {
           ref={(el) => {
             if (el) {
               circlesRef.current[index] = el;
-              el.x = 0;
-              el.y = 0;
+              el.dataset.x = '0';
+              el.dataset.y = '0';
             }
           }}
           style={{
@@ -62,9 +64,9 @@ const Circles = () => {
             borderRadius: '50%',
             background: 'white',
             pointerEvents: 'none',
-            zIndex:"999999",
-            cursor:"none",
-            transition: 'transform 0.1s, left 0.1s, top 0.1s'
+            zIndex: 999999,
+            cursor: 'none',
+            transition: 'transform 0.1s, left 0.1s, top 0.1s',
           }}
         />
       ))}
